@@ -2,9 +2,9 @@ import sys
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import explode, count, split, regexp_replace
 
-input_path = f"hdfs://ip-172-31-95-23.ec2.internal:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
+input_path = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
 
-output_path = f"hdfs://ip-172-31-95-23.ec2.internal:9000/assignment2/output/question4/"
+output_path = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output/question4/"
 
 
 # you may add more import if you need to

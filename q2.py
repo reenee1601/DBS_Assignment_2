@@ -10,9 +10,9 @@ spark = SparkSession.builder.appName("Assigment 2 Question 2").getOrCreate()
 # YOUR CODE GOES BELOW
 
 # Input and output path
-input_csv = f"hdfs://ip-172-31-95-23.ec2.internal:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
+input_csv = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
 
-output_csv = f"hdfs://ip-172-31-95-23.ec2.internal:9000/assignment2/output/question2/"
+output_csv = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output/question2/"
 # Get the input CSV file as a dataframe :
 
 df_q2 = spark.read.csv(input_csv, header=True)
