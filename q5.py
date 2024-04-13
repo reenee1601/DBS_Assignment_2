@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode, collect_list, size
+from pyspark.sql.functions import explode, collect_list, size, col
 from itertools import combinations
 
 # Create a SparkSession
