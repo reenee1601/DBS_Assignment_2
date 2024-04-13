@@ -5,16 +5,14 @@ from pyspark.sql.functions import col, max, min
 # you may add more import if you need to
 
 
-# don't change this line
-hdfs_nn = sys.argv[1]
 
 spark = SparkSession.builder.appName("Assigment 2 Question 2").getOrCreate()
 # YOUR CODE GOES BELOW
 
-# Input and output paths
-input_csv = "/content/drive/MyDrive/Colab Notebooks/TA_restaurants_curated_cleaned.csv"
-output_csv = "/content/drive/MyDrive/Colab Notebooks/assignment2/output/question2/"
+# Input and output path
+input_csv = f"hdfs://ip-172-31-95-23.ec2.internal:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
 
+output_csv = f"hdfs://ip-172-31-95-23.ec2.internal:9000/assignment2/output/question2/"
 # Get the input CSV file as a dataframe :
 
 df_q2 = spark.read.csv(input_csv, header=True)

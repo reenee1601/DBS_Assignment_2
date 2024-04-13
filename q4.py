@@ -2,16 +2,14 @@ import sys
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import explode, count, split, regexp_replace
 
-# Input and output paths
-input_path = "TA_restaurants_curated_cleaned.csv"
-output_path = "/Users/admin/Downloads/DB_Assignment2/assignment2/output/question4/"
+input_path = f"hdfs://ip-172-31-95-23.ec2.internal:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
+
+output_path = f"hdfs://ip-172-31-95-23.ec2.internal:9000/assignment2/output/question4/"
 
 
 # you may add more import if you need to
 
 
-# don't change this line
-hdfs_nn = sys.argv[1]
 
 spark = SparkSession.builder.appName("Assigment 2 Question 4").getOrCreate()
 # YOUR CODE GOES BELOW
