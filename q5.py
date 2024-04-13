@@ -27,7 +27,7 @@ df_grouped = df_cast.groupBy("movie_id", "title").agg(collect_list("actor").alia
 
 # Apply the UDF to generate pairs of actors/actresses for each movie
 df_pairs = df_grouped.withColumn("actor_pairs", explode("generate_actor_pairs_udf(cast_list)")) \
-                     .select("movie_id", "title", "actor_pairs.actor1", "actor_pairs.actor2")
+                     .select("movie_id", "title", col("actor_pairs.actor1").alias("actor1"), col("actor_pairs.actor2").alias("actor2"))
 
 # Count the occurrences of each pair
 df_count = df_pairs.groupBy("actor1", "actor2").agg(size(collect_list("movie_id")).alias("num_movies"))
