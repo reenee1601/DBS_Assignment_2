@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import from_json, col, explode, size, collect_list
+from pyspark.sql.functions import concat_ws,lit,from_json, col, explode, size, collect_list
 
 # Create a SparkSession
 spark = SparkSession.builder \
@@ -21,8 +21,8 @@ df_pairs = df_cast.alias("a") \
   .select("a.movie_id", "a.title", col("a.actor").alias("actor1"), col("b.actor").alias("actor2"))
 
 # Count the occurrences of each pair
-df_count = df_pairs.groupBy("actors").agg(size(collect_list("movie_id")).alias("num_movies"))
-
+df_count = df_pairs.groupBy(concat_ws(col("actor1"), lit(" - "), col("actor2")).alias("actors")) \
+                  .agg(size(collect_list("movie_id")).alias("num_movies"))
 # Filter out pairs that appear in at least 2 movies
 df_filtered = df_count.filter(col("num_movies") >= 2)
 
