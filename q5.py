@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode, collect_list, size, col
+from pyspark.sql.functions import split,explode, collect_list, size, col,combinations
 
 # Create a SparkSession
 spark = SparkSession.builder \
@@ -9,9 +9,10 @@ spark = SparkSession.builder \
 # Load the Parquet file into a DataFrame
 df = spark.read.parquet("hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/part2/input/tmdb_5000_credits.parquet")
 
-# Split the cast column into individual actors/actresses
-df_cast = df.withColumn("actor", explode(col("cast"))).select("movie_id", "title", "actor")
-
+# Split the cast string into individual actors/actresses
+df_cast = df.withColumn("cast", split(col("cast"), ",")) \
+            .withColumn("actor", explode(col("cast"))) \
+            .select("movie_id", "title", "actor")
 # Collect the list of actors/actresses for each movie
 df_grouped = df_cast.groupBy("movie_id", "title").agg(collect_list("actor").alias("cast_list"))
 
