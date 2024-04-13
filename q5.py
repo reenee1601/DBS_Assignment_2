@@ -26,11 +26,8 @@ df_count = df_pairs.groupBy("actors").agg(size(collect_list("movie_id")).alias("
 # Filter out pairs that appear in at least 2 movies
 df_filtered = df_count.filter(col("num_movies") >= 2)
 
-# Format the output as RDD
-rdd_output = df_filtered.rdd.map(lambda row: (row['actors'][0], row['actors'][1], row['num_movies']))
-
 # Save the output as Parquet files
-rdd_output.saveAsTextFile("hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output/question5/")
+df_filtered.write.parquet("hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output/question5/")
 
 # Stop the SparkSession
 spark.stop()
