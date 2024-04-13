@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode, collect_list, size, col
+from pyspark.sql.functions import explode, collect_list, size, split, col
 from itertools import combinations
 
 # Create a SparkSession
@@ -11,7 +11,7 @@ spark = SparkSession.builder \
 df = spark.read.parquet("hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/part2/input/tmdb_5000_credits.parquet")
 
 # Split the cast column into individual actors/actresses
-df_cast = df.withColumn("actor", explode(col("cast"))).select("movie_id", "title", "actor")
+df_cast = df.withColumn("actor", explode(split(col("cast"), ","))).select("movie_id", "title", "actor")
 
 # Collect the list of actors/actresses for each movie
 df_grouped = df_cast.groupBy("movie_id", "title").agg(collect_list("actor").alias("cast_list"))
@@ -26,8 +26,11 @@ df_count = df_pairs.groupBy("actors").agg(size(collect_list("movie_id")).alias("
 # Filter out pairs that appear in at least 2 movies
 df_filtered = df_count.filter(col("num_movies") >= 2)
 
+# Format the output as RDD
+rdd_output = df_filtered.rdd.map(lambda row: (row['actors'][0], row['actors'][1], row['num_movies']))
+
 # Save the output as Parquet files
-df_filtered.write.parquet("hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output/question5/")
+rdd_output.saveAsTextFile("hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output/question5/")
 
 # Stop the SparkSession
 spark.stop()
