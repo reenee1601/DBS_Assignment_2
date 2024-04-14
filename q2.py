@@ -12,7 +12,7 @@ spark = SparkSession.builder.appName("Assigment 2 Question 2").getOrCreate()
 # Input and output path
 input_csv = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
 
-output_csv = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output/question2/"
+output_csv = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output2/question2/"
 # Get the input CSV file as a dataframe :
 
 df_q2 = spark.read.csv(input_csv, header=True)
@@ -71,7 +71,9 @@ print("Number of rows in final dataframe:", total_rows)
 
 # Write the filtered csv to the output path :
 
-df_q2.write.csv(output_csv, header=True)
+# Write the filtered csv to the output path, coalesce to a single partition:
+df_q2.coalesce(1).write.csv(output_csv, header=True)
+
 
 # Stop the spark session :
 spark.stop()
