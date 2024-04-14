@@ -35,7 +35,7 @@ print("Number of rows in final dataframe:", total_rows)
 
 # Write the filtered csv to the output path :
 
-df_q1.write.csv(output_csv, header=True)
+df_q1.coalesce(1).write.csv(output_csv, header=True)
 
 # Stop the spark session :
 spark.stop()
