@@ -5,7 +5,7 @@ from pyspark.sql.functions import avg, col, lit
 # Input and output path
 input_path = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
 
-output_path = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output/question3/"
+output_path = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output3/question3/"
 
 
 # you may add more import if you need to
@@ -36,7 +36,7 @@ def extract_top_bottom_cities(input_path, output_path):
     combined_cities.select("City", "AverageRating", "RatingGroup").show()
 
     # Write the combined DataFrame to output path
-    combined_cities.write.csv(output_path, header=True)
+    combined_cities.coalesce(1).write.csv(output_path, header=True)
 
 if __name__ == "__main__":
     # Call the function to extract top and bottom cities by average rating

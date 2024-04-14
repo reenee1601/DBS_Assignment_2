@@ -4,7 +4,7 @@ from pyspark.sql.functions import explode, count, split, regexp_replace
 
 input_path = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
 
-output_path = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output/question4/"
+output_path = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output3/question4/"
 
 
 # you may add more import if you need to
@@ -31,7 +31,7 @@ def analyze_restaurant_count(input_path, output_path):
     result.show(truncate=False)
 
     # Write output as CSV files into output path
-    result.write.csv(output_path, header=True)
+    result.coalesce(1).write.csv(output_path, header=True)
 
 if __name__ == "__main__":
     # Call the function to analyze restaurant count and write the output

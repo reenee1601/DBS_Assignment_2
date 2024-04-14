@@ -10,7 +10,7 @@ spark = SparkSession.builder.appName("Assignment 2 Question 1").getOrCreate()
 
 # Input and output paths
 input_csv = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/part1/input/TA_restaurants_curated_cleaned.csv"
-output_csv = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output2/question1/"
+output_csv = f"hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output3/question1/"
 
 # Get the input CSV file as a dataframe :
 

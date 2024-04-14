@@ -27,7 +27,7 @@ df_count = df_pairs.groupBy(concat_ws(col("actor1"), lit(" - "), col("actor2")).
 df_filtered = df_count.filter(col("num_movies") >= 2)
 
 # Save the output as Parquet files with desired schema
-df_filtered.select("movie_id", "title", "actor1", "actor2").write.parquet("hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output/question5/")
+df_filtered.select("movie_id", "title", "actor1", "actor2").coalesce(1).write.parquet("hdfs://ip-172-31-94-60.ec2.internal:9000/assignment2/output3/question5/")
 
 # Stop the SparkSession
 spark.stop()
