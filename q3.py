@@ -36,7 +36,7 @@ def extract_top_bottom_cities(input_path, output_path):
     combined_cities.select("City", "AverageRating", "RatingGroup").show()
 
     # Write the combined DataFrame to output path
-    combined_cities.coalesce(1).write.csv(output_path, header=True)
+    combined_cities.coalesce(1).write.csv(output_path, header=True, mode="overwrite")
 
 if __name__ == "__main__":
     # Call the function to extract top and bottom cities by average rating

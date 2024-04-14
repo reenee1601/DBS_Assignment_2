@@ -31,7 +31,7 @@ def analyze_restaurant_count(input_path, output_path):
     result.show(truncate=False)
 
     # Write output as CSV files into output path
-    result.coalesce(1).write.csv(output_path, header=True)
+    result.coalesce(1).write.csv(output_path, header=True, mode="overwrite")
 
 if __name__ == "__main__":
     # Call the function to analyze restaurant count and write the output
